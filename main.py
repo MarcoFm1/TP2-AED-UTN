@@ -1,11 +1,11 @@
-envios = open("envios25.txt")
+envios = open("TP2-AED-UTN/envios25.txt")
 print(envios.read())
 
 pais = None
 provincia = None
 precio_inicial = None
 precio_final = None
-Descuenos = None
+descuentos = None
 recargo = None
 
 cp = input("Ingrese el código postal del lugar de destino: ")
