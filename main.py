@@ -1,4 +1,4 @@
-envios = open("envios25.txt", "r", encoding="utf-8").readlines()
+envios = open("envios100SC.txt", "r", encoding="utf-8").readlines()
 #1
 def control():
     for line in envios:
@@ -58,8 +58,9 @@ for envio in envios[1:]:
         false_count += 1
 
 if control() == "Hard Control":
-    print(f"Total Valid: {true_count}")
-    print(f"Total Invalid: {false_count}")
+    pass
+    # print(f"Total Valid: {true_count}")
+    # print(f"Total Invalid: {false_count}")
 else:
     true_count = len(envios) - 1 
     false_count = 0
@@ -110,6 +111,7 @@ def imp_acu_total():
             # Calcular el monto basado en tipo de envio
             tipo = linea[29]
             precio_inicial = 0
+            monto_final = 0
             if tipo == '0':
                 precio_inicial = 1100
             elif tipo == '1':
@@ -137,15 +139,15 @@ def imp_acu_total():
             if result == True:
                 lista_cp = []
                 cont_cp = 0
-                # print("-----------")
+                print("-----------")
                 for letra in linea[:9]:
                     cp = letra
                     lista_cp.append(cp)
-                    # print(cp)
+                    print(cp)
                     cont_cp += 1
                 cont_cp_final = cont_cp
-                # print("letras: ", cont_cp_final)
-                # print(lista_cp)
+                print("letras: ", cont_cp_final)
+                print(lista_cp)
                 
                 # Determinar país y recargo
                 if cont_cp_final == 8 and lista_cp[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
@@ -190,15 +192,15 @@ def imp_acu_total():
                     precio_inicial = 17900
                 monto_final = precio_inicial * recargo
 
-                # print("Tipo de envio: ", tipo)
-                # print("Monto: ", monto_final)
+                print("Tipo de envio: ", tipo)
+                print("Monto: ", monto_final)
                 
                 importe_acumulado += monto_final
 
 
     return importe_acumulado
 
-    # print("Importe acumulado final: ", importe_acumulado)
+    
 
 
 def tipo_carta():
