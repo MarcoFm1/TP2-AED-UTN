@@ -7,81 +7,81 @@ Descuenos = None
 recargo = None
 
 cp = input("Ingrese el código postal del lugar de destino: ")
-if len(cp) == 8 and cp[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
+if cont_cp_final == 8 and lista_cp[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
     pais = "Argentina"
     recargo = 1
-    if cp[0] in "aA":
+    if lista_cp[0] in "aA":
         provincia = "salta"
-    elif cp[0] in "bB":
+    elif lista_cp[0] in "bB":
         provincia = "Provincia de BsAs"
-    elif cp[0] in "cC":
+    elif lista_cp[0] in "cC":
         provincia = "Ciudad Autónoma de Buenos Aires"
-    elif cp[0] in "dD":
+    elif lista_cp[0] in "dD":
         provincia = "San Luis"
-    elif cp[0] in "eE":
+    elif lista_cp[0] in "eE":
         provincia = "Entre Ríos"
-    elif cp[0] in "fF":
+    elif lista_cp[0] in "fF":
         provincia = "La Rioja"
-    elif cp[0] in "gG":
+    elif lista_cp[0] in "gG":
         provincia = "Santiago del Estero"
-    elif cp[0] in "hH":
+    elif lista_cp[0] in "hH":
         provincia = "Chaco"
-    elif cp[0] in "jJ":
+    elif lista_cp[0] in "jJ":
         provincia = "San Juan"
-    elif cp[0] in "kK":
+    elif lista_cp[0] in "kK":
         provincia = "Catamarca"
-    elif cp[0] in "lL":
+    elif lista_cp[0] in "lL":
         provincia = "La Pampa"
-    elif cp[0] in "Mm":
+    elif lista_cp[0] in "Mm":
         provincia = "Mendoza"
-    elif cp[0] in "Nn":
+    elif lista_cp[0] in "Nn":
         provincia = "Misiones"
-    elif cp[0] in "Pp":
+    elif lista_cp[0] in "Pp":
         provincia = "Formosa"
-    elif cp[0] in "Qq":
+    elif lista_cp[0] in "Qq":
         provincia = "Neuquén"
-    elif cp[0] in "Rr":
+    elif lista_cp[0] in "Rr":
         provincia = "Rio Negro"
-    elif cp[0] in "Ss":
+    elif lista_cp[0] in "Ss":
         provincia = "Santa Fe"
-    elif cp[0] in "Tt":
+    elif lista_cp[0] in "Tt":
         provincia = "Tucuman"
-    elif cp[0] in "Uu":
+    elif lista_cp[0] in "Uu":
         provincia = "Chubut"
-    elif cp[0] in "Vv":
+    elif lista_cp[0] in "Vv":
         provincia = "Tierra del Fuego"
-    elif cp[0] in "Ww":
+    elif lista_cp[0] in "Ww":
         provincia = "Corrientes"
-    elif cp[0] in "Xx":
+    elif lista_cp[0] in "Xx":
         provincia = "Cordoba"
-    elif cp[0] in "Yy":
+    elif lista_cp[0] in "Yy":
         provincia = "Jujuy"
-    elif cp[0] in "Zz":
+    elif lista_cp[0] in "Zz":
         provincia = "Santa Cruz"
     else:
         provincia = "No aplica"
-elif len(cp) == 4 and cp[0] in "1234567890":
+elif cont_cp_final == 4 and lista_cp[0] in "1234567890":
     pais = "Bolivia"
     provincia = "No aplica"
     recargo = 1.2
-elif len(cp) == 9 and cp[0] in "1234567890" and cp[5] == "-":
+elif cont_cp_final == 9 and lista_cp[0] in "1234567890" and cp[5] == "-":
     pais = "Brasil"
-    if cp[0] in ("0123"):
+    if lista_cp[0] in ("0123"):
         recargo = 1.25
         provincia = "No aplica"
-    elif cp[0] in ("89"):
+    elif lista_cp[0] in ("89"):
         recargo = 1.2
         provincia = "No aplica"
-    elif cp[0] in ("4567"):
+    elif lista_cp[0] in ("4567"):
         recargo = 1.3
         provincia = "No aplica"
-elif len(cp) == 7 and cp[0] in "1234567890":
+elif cont_cp_final == 7 and lista_cp[0] in "1234567890":
     pais = "Chile"
     provincia = "No aplica"
     recargo = 1.25
-elif len(cp) == 5 and cp[0] in "1234567890":
+elif cont_cp_final == 5 and lista_cp[0] in "1234567890":
     pais = "Uruguay"
-    if cp[0] == "1":
+    if lista_cp[0] == "1":
         pais = "Uruguay"
         provincia = "No aplica"
         recargo = 1.2
@@ -89,7 +89,7 @@ elif len(cp) == 5 and cp[0] in "1234567890":
         pais = "Uruguay"
         provincia = "No aplica"
         recargo = 1.25
-elif len(cp) == 6 and cp[0] in "1234567890":
+elif cont_cp_final == 6 and lista_cp[0] in "1234567890":
     pais = "Paraguay"
     provincia = "No aplica"
     recargo = 1.2
@@ -126,7 +126,7 @@ else:
     false_count = 0
 '''
 
-envios = open("envios100HC.txt", "r", encoding="utf-8").readlines()
+envios = open("envios25.txt", "r", encoding="utf-8").readlines()
 #1
 def control():
     for line in envios:
@@ -138,8 +138,8 @@ def control():
 
 #2
 def validation(envio: str):
-    print("-------")
-    print(f"viendo: {envio[8:29].strip()}")
+    # print("-------")
+    # print(f"viendo: {envio[8:29].strip()}")
     is_mayus = False
     some_word_is_numeric = False
     actual_word = ""
@@ -178,7 +178,7 @@ false_count = 0
 
 for envio in envios[1:]:
     result = validation(envio)
-    print(f"{result}")
+    # print(f"{result}")
     
     if result:
         true_count += 1
@@ -195,33 +195,256 @@ else:
 
 
 def imp_acu_total():
+    importe_acumulado = 0
+    
     if control() == "Soft Control":
-        pass
+        for linea in envios[1:]:
+            lista_cp = []
+            cont_cp = 0
+            # print("-----------")
+            for letra in linea[:9]:
+                cp = letra
+                lista_cp.append(cp)
+                # print(cp)
+                cont_cp += 1
+            cont_cp_final = cont_cp
+            # print("letras: ", cont_cp_final)
+            # print(lista_cp)
+            
+            # Determinar país y recargo
+            if cont_cp_final == 8 and lista_cp[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
+                pais = "Argentina"
+                recargo = 1
+            elif cont_cp_final == 4 and lista_cp[0] in "1234567890":
+                pais = "Bolivia"
+                provincia = "No aplica"
+                recargo = 1.2
+            elif cont_cp_final == 9 and lista_cp[0] in "1234567890" and lista_cp[5] == "-":
+                pais = "Brasil"
+                if lista_cp[0] in ("0123"):
+                    recargo = 1.25
+                    provincia = "No aplica"
+                elif lista_cp[0] in ("89"):
+                    recargo = 1.2
+                    provincia = "No aplica"
+                elif lista_cp[0] in ("4567"):
+                    recargo = 1.3
+                    provincia = "No aplica"
+            elif cont_cp_final == 7 and lista_cp[0] in "1234567890":
+                pais = "Chile"
+                provincia = "No aplica"
+                recargo = 1.25
+            elif cont_cp_final == 5 and lista_cp[0] in "1234567890":
+                pais = "Uruguay"
+                if lista_cp[0] == "1":
+                    provincia = "No aplica"
+                    recargo = 1.2
+                else:
+                    provincia = "No aplica"
+                    recargo = 1.25
+            elif cont_cp_final == 6 and lista_cp[0] in "1234567890":
+                pais = "Paraguay"
+                provincia = "No aplica"
+                recargo = 1.2
+            else:
+                pais = "Otro"
+                provincia = "No aplica"
+                recargo = 1.5 
 
+            # Calcular el monto basado en tipo de envio
+            tipo = linea[29]
+            precio_inicial = 0
+            if tipo == '0':
+                precio_inicial = 1100
+            elif tipo == '1':
+                precio_inicial = 1800
+            elif tipo == '2':
+                precio_inicial = 2450
+            elif tipo == '3':
+                precio_inicial = 8300
+            elif tipo == '4':
+                precio_inicial = 10900
+            elif tipo == '5':
+                precio_inicial = 14300
+            elif tipo == '6':
+                precio_inicial = 17900
+            monto_final = precio_inicial * recargo
+
+            # print("Tipo de envio: ", tipo)
+            # print("Monto: ", monto_final)
+            
+            importe_acumulado += monto_final
+
+    elif control() == "Hard Control":
+        for linea in envios[1:]:
+            result = validation(linea)
+            if result == True:
+                lista_cp = []
+                cont_cp = 0
+                # print("-----------")
+                for letra in linea[:9]:
+                    cp = letra
+                    lista_cp.append(cp)
+                    # print(cp)
+                    cont_cp += 1
+                cont_cp_final = cont_cp
+                # print("letras: ", cont_cp_final)
+                # print(lista_cp)
+                
+                # Determinar país y recargo
+                if cont_cp_final == 8 and lista_cp[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
+                    pais = "Argentina"
+                    recargo = 1
+                elif cont_cp_final == 4 and lista_cp[0] in "1234567890":
+                    pais = "Bolivia"
+                    provincia = "No aplica"
+                    recargo = 1.2
+                elif cont_cp_final == 9 and lista_cp[0] in "1234567890" and lista_cp[5] == "-":
+                    pais = "Brasil"
+                    if lista_cp[0] in ("0123"):
+                        recargo = 1.25
+                        provincia = "No aplica"
+                    elif lista_cp[0] in ("89"):
+                        recargo = 1.2
+                        provincia = "No aplica"
+                    elif lista_cp[0] in ("4567"):
+                        recargo = 1.3
+                        provincia = "No aplica"
+                elif cont_cp_final == 7 and lista_cp[0] in "1234567890":
+                    pais = "Chile"
+                    provincia = "No aplica"
+                    recargo = 1.25
+                elif cont_cp_final == 5 and lista_cp[0] in "1234567890":
+                    pais = "Uruguay"
+                    if lista_cp[0] == "1":
+                        provincia = "No aplica"
+                        recargo = 1.2
+                    else:
+                        provincia = "No aplica"
+                        recargo = 1.25
+                elif cont_cp_final == 6 and lista_cp[0] in "1234567890":
+                    pais = "Paraguay"
+                    provincia = "No aplica"
+                    recargo = 1.2
+                else:
+                    pais = "Otro"
+                    provincia = "No aplica"
+                    recargo = 1.5 
+
+                # Calcular el monto basado en tipo de envio
+                tipo = linea[29]
+                precio_inicial = 0
+                if tipo == '0':
+                    precio_inicial = 1100
+                elif tipo == '1':
+                    precio_inicial = 1800
+                elif tipo == '2':
+                    precio_inicial = 2450
+                elif tipo == '3':
+                    precio_inicial = 8300
+                elif tipo == '4':
+                    precio_inicial = 10900
+                elif tipo == '5':
+                    precio_inicial = 14300
+                elif tipo == '6':
+                    precio_inicial = 17900
+                monto_final = precio_inicial * recargo
+
+                # print("Tipo de envio: ", tipo)
+                # print("Monto: ", monto_final)
+                
+                importe_acumulado += monto_final
+
+
+    return importe_acumulado
+
+    # print("Importe acumulado final: ", importe_acumulado)
+
+
+def tipo_carta():
+    carta_simple = 0
+    carta_certificada = 0
+    carta_expresa = 0
+    
+    if control() == "Soft Control":
+        for linea in envios[1:]:
+            tipo = linea[29]
+            if tipo == '0' or tipo == '1' or tipo == '2':
+                carta_simple += 1                
+            elif tipo == '3' or tipo == '4':
+                carta_certificada += 1
+            elif tipo == '5' or tipo == '6':
+                carta_expresa += 1
+                
+    elif control() == "Hard Control":
+        for linea in envios[1:]:
+            result = validation(linea)
+            if result == True:
+                tipo = linea[29]
+                if tipo == '0' or tipo == '1' or tipo == '2':
+                    carta_simple += 1                
+                elif tipo == '3' or tipo == '4':
+                    carta_certificada += 1
+                elif tipo == '5' or tipo == '6':
+                    carta_expresa += 1
+
+    return carta_simple, carta_certificada, carta_expresa
+
+# Definir las funciones separadas para retornar cada tipo de carta
 
 def ccs():
-    return ""
+    simple, certificada, expresa = tipo_carta()
+    return simple
 
 def ccc():
-    return ""
+    simple, certificada, expresa = tipo_carta()
+    return certificada
 
 def cce():
-    return ""
+    simple, certificada, expresa = tipo_carta()
+    return expresa
+
+    
+
 
 def tipo_mayor():
-    return ""
 
-def cce():
-    return ""
+    mayor = ccs()
+    nombre_mayor = "Carta Simple"
+    if ccc() > mayor:
+        mayor = ccc()
+        nombre_mayor = "Carta Verificada"
+    if cce() > mayor:
+        mayor = cce()
+        nombre_mayor = "Carta Expresa"
+    
+    return nombre_mayor
+    
 
 def primer_cp():
-    return ""
+    linea = envios[1]
+    lista_cp = ""
+    cont_cp = 0
+    for letra in linea[:9]:
+        cp = letra
+        lista_cp = lista_cp + cp
+        # print(cp)
+        cont_cp += 1
+        cont_cp_final = cont_cp
+    
+    return lista_cp.strip()
 
-def cce():
-    return ""
 
 def cant_primer_cp():
-    return ""
+    primer_cpe = primer_cp()
+    contador = 0
+    for linea in envios:
+        if linea == primer_cpe:
+            contador += 1
+
+    return contador
+
+
 
 def menimp():
     return ""
@@ -239,7 +462,6 @@ def prom():
 print(' (r1) - Tipo de control de direcciones:', control())
 print(' (r2) - Cantidad de envios con direccion valida:', true_count)
 print(' (r3) - Cantidad de envios con direccion no valida:', false_count)
-
 print(' (r4) - Total acumulado de importes finales:', imp_acu_total())
 print(' (r5) - Cantidad de cartas simples:', ccs())
 print(' (r6) - Cantidad de cartas certificadas:', ccc())
