@@ -1,4 +1,4 @@
-envios = open("envios100SC.txt", "r", encoding="utf-8").readlines()
+envios = open("envios100HC.txt", "r").readlines()
 #1
 def control():
     for line in envios:
@@ -273,6 +273,7 @@ def cant_primer_cp():
             contador += 1
     return contador
 
+#11 y 12
 def menimp():
     menor_importe = None
     cp_menor_importe = None
@@ -315,18 +316,16 @@ def menimp():
 menor_importe, cp_menor_importe = menimp()
 
 
+#13
 def porc():
     total = 0
     cont = 0
-
     if control() == "Soft Control":
-
         for linea in envios[1:]:
             total += 1
             cp = linea[:9].strip()
             if len(cp) != 8:
                 cont += 1
-        
         if total > 0:
             porce = (cont / total) * 100
         else:
@@ -335,64 +334,93 @@ def porc():
         return porce
     elif control() == "Hard Control":
         for linea in envios[1:]:
-            result = validation(linea)
-            if result == True:
+            if not validation(linea) == True:
                 total = 0
                 cont = 0
-        for linea in envios[1:]:
-            total += 1
-            cp = linea[:9].strip()
-            if len(cp) != 8:
-                cont += 1
+            for linea in envios[1:]:
+                total += 1
+                cp = linea[:9].strip()
+                if len(cp) != 8:
+                    cont += 1
         
-        if total > 0:
-            porce = (cont / total) * 100
-        else:
-            porce = 0
+        porce = int((cont / total) * 100)
         
         return porce
 
 
-
+#14
 def prom():    
     importe_total = 0
     cantidad_envios = 0
-
-    for linea in envios[1:]:
-        cp = linea[:9].strip()
+    if control() == "Soft Control":
+        for linea in envios[1:]:
+            cp = linea[:9].strip()
+            
+            if len(cp) == 8 and cp[0] in "bB":
+                recargo = 1 
+                tipo = int(linea[29])  
+                if tipo == 0:
+                    precio_inicial = 1100
+                elif tipo == 1:
+                    precio_inicial = 1800
+                elif tipo == 2:
+                    precio_inicial = 2450
+                elif tipo == 3:
+                    precio_inicial = 8300
+                elif tipo == 4:
+                    precio_inicial = 10900
+                elif tipo == 5:
+                    precio_inicial = 14300
+                elif tipo == 6:
+                    precio_inicial = 17900
+                else:
+                    pass  
+                    
+                importe_envio = precio_inicial * recargo
+                importe_total += importe_envio
+                cantidad_envios += 1
         
-        if len(cp) == 8 and cp[0] in "bB":
-            recargo = 1 
-            tipo = int(linea[29])  
-            if tipo == 0:
-                precio_inicial = 1100
-            elif tipo == 1:
-                precio_inicial = 1800
-            elif tipo == 2:
-                precio_inicial = 2450
-            elif tipo == 3:
-                precio_inicial = 8300
-            elif tipo == 4:
-                precio_inicial = 10900
-            elif tipo == 5:
-                precio_inicial = 14300
-            elif tipo == 6:
-                precio_inicial = 17900
+        if cantidad_envios > 0:
+            promedio_importe = int(importe_total / cantidad_envios)  
+        else:
+            promedio_importe = 0
+        
+        return promedio_importe
+    elif control() == "Hard Control":
+        for linea in envios[1:]:
+            result = validation(linea)
+            if result == True:  
+                cp = linea[:9].strip()
+            
+            if len(cp) == 8 and cp[0] in "bB":
+                recargo = 1 
+                tipo = int(linea[29])  
+                if tipo == 0:
+                    precio_inicial = 1100
+                elif tipo == 1:
+                    precio_inicial = 1800
+                elif tipo == 2:
+                    precio_inicial = 2450
+                elif tipo == 3:
+                    precio_inicial = 8300
+                elif tipo == 4:
+                    precio_inicial = 10900
+                elif tipo == 5:
+                    precio_inicial = 14300
+                elif tipo == 6:
+                    precio_inicial = 17900
+                else:
+                    pass  
+                    
+                importe_envio = precio_inicial * recargo
+                importe_total += importe_envio
+                cantidad_envios += 1
+            if cantidad_envios > 0:
+                promedio_importe = int(importe_total / cantidad_envios)
             else:
-                continue  
-                
-            importe_envio = precio_inicial * recargo
-            importe_total += importe_envio
-            cantidad_envios += 1
-    
-    if cantidad_envios > 0:
-        promedio_importe = importe_total / cantidad_envios
-    else:
-        promedio_importe = 0
-    
-    return promedio_importe
+                promedio_importe = 0
 
-
+            return promedio_importe
 
 print(' (r1) - Tipo de control de direcciones:', control())
 print(' (r2) - Cantidad de envios con direccion valida:', true_count)
@@ -404,13 +432,7 @@ print(' (r7) - Cantidad de cartas expresas:', cce())
 print(' (r8) - Tipo de carta con mayor cantidad de envios:', tipo_mayor())
 print(' (r9) - Codigo postal del primer envio del archivo:', primer_cp())
 print('(r10) - Cantidad de veces que entro ese primero:', cant_primer_cp())
-
 print('(r11) - Importe menor pagado por envíos a Brasil:', menor_importe)
 print('(r12) - Código postal del envío a Brasil con importe menor:', cp_menor_importe)
 print('(r13) - Porcentaje de envios al exterior sobre el total:', porc())
-
 print('(r14) - Importe final promedio de los envios a Buenos Aires:', prom())
-
-
-
-

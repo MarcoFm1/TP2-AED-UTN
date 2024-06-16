@@ -5,16 +5,16 @@ import os
 SOURCES = "./trabajos/"
 
 # Resultados esperados ("Expected Results") para el archivo envios25.txt (de prueba para los estudiantes)...
-# ER = ['Hard Control', '17', '8', '152627', '9', '3', '5', 'Carta Simple', '03X3076', '2', '2250', '07439-412', '60', '10900']
+#ER = ['Hard Control', '17', '8', '152627', '9', '3', '5', 'Carta Simple', '03X3076', '2', '2250', '07439-412', '60', '10900']
 
 # Resultados esperados ("Expected Results") para el archivo envios100HC.txt (de prueba para los estudiantes)...
-# ER = ['Hard Control', '63', '37', '571649', '31', '15', '17', 'Carta Simple', '247X', '1', '1287', '65090-152', '54', '16110']
+ER = ['Hard Control', '63', '37', '571649', '31', '15', '17', 'Carta Simple', '247X', '1', '1287', '65090-152', '54', '16110']
 
 # Resultados esperados ("Expected Results") para el archivo envios100SC.txt (de prueba para los estudiantes)...
-# ER = ['Soft Control', '100', '0', '943197', '42', '34', '24', 'Carta Simple', '247X', '1', '1287', '65090-152', '86', '16110']
+#ER = ['Soft Control', '100', '0', '943197', '42', '34', '24', 'Carta Simple', '247X', '1', '1287', '65090-152', '86', '16110']
 
 # Resultados esperados ("Expected Results") para el archivo envios500b.txt (de prueba para los estudiantes)...
-ER = ['Hard Control', '353', '147', '3325431', '160', '93', '100', 'Carta Simple', '482211', '6', '1237', '15735-587', '62', '13585']
+#ER = ['Hard Control', '353', '147', '3325431', '160', '93', '100', 'Carta Simple', '482211', '6', '1237', '15735-587', '62', '13585']
 
 
 # Muestra los valores contenidos en "text" en una línea de color rojo intenso.
