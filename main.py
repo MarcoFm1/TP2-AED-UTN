@@ -491,22 +491,16 @@ def porc():
     return porce
 
 
-def prom():
-    importe_envio = 0
-    
+def prom():    
+    importe_total = 0
+    cantidad_envios = 0
+
     for linea in envios[1:]:
         cp = linea[:9].strip()
         
-        if len(cp) == 8:
-            primer_digito = int(cp[0])
-            if primer_digito in [0, 1, 2, 3]:
-                recargo = 1.25
-            elif primer_digito in [8, 9]:
-                recargo = 1.2
-            elif primer_digito in [4, 5, 6, 7]:
-                recargo = 1.3
-            
-            tipo = int(linea[29]) 
+        if len(cp) == 8 and cp[0] in "bB":
+            recargo = 1 
+            tipo = int(linea[29])  
             if tipo == 0:
                 precio_inicial = 1100
             elif tipo == 1:
@@ -521,9 +515,19 @@ def prom():
                 precio_inicial = 14300
             elif tipo == 6:
                 precio_inicial = 17900
-            monto_final = precio_inicial * recargo
+            else:
+                continue  
                 
-    return ""
+            importe_envio = precio_inicial * recargo
+            importe_total += importe_envio
+            cantidad_envios += 1
+    
+    if cantidad_envios > 0:
+        promedio_importe = importe_total / cantidad_envios
+    else:
+        promedio_importe = 0
+    
+    return promedio_importe
 
 
 
