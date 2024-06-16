@@ -492,7 +492,39 @@ def porc():
 
 
 def prom():
+    importe_envio = 0
+    
+    for linea in envios[1:]:
+        cp = linea[:9].strip()
+        
+        if len(cp) == 8:
+            primer_digito = int(cp[0])
+            if primer_digito in [0, 1, 2, 3]:
+                recargo = 1.25
+            elif primer_digito in [8, 9]:
+                recargo = 1.2
+            elif primer_digito in [4, 5, 6, 7]:
+                recargo = 1.3
+            
+            tipo = int(linea[29]) 
+            if tipo == 0:
+                precio_inicial = 1100
+            elif tipo == 1:
+                precio_inicial = 1800
+            elif tipo == 2:
+                precio_inicial = 2450
+            elif tipo == 3:
+                precio_inicial = 8300
+            elif tipo == 4:
+                precio_inicial = 10900
+            elif tipo == 5:
+                precio_inicial = 14300
+            elif tipo == 6:
+                precio_inicial = 17900
+            monto_final = precio_inicial * recargo
+                
     return ""
+
 
 
 print(' (r1) - Tipo de control de direcciones:', control())
