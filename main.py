@@ -1,11 +1,11 @@
-envios = open("TP2-AED-UTN/envios25.txt")
+envios = open("envios25.txt")
 print(envios.read())
 
 pais = None
 provincia = None
 precio_inicial = None
 precio_final = None
-descuentos = None
+Descuenos = None
 recargo = None
 
 cp = input("Ingrese el código postal del lugar de destino: ")
@@ -124,22 +124,65 @@ pago = int(input("Forma de pago (1: efectivo - 2: tarjeta): "))
 if pago == 1:
     descuento = 0.9
 else:
-    descuento = 1
+    true_count = len(envios) - 1 
+    false_count = 0
 
-inicial = round(precio_inicial * recargo)
-final = round((inicial * descuento))
 
-print(' (r1) - Tipo de control de direcciones:', control)
-print(' (r2) - Cantidad de envios con direccion valida:', cedvalid)
-print(' (r3) - Cantidad de envios con direccion no valida:', cedinvalid)
-print(' (r4) - Total acumulado de importes finales:', imp_acu_total)
-print(' (r5) - Cantidad de cartas simples:', ccs)
-print(' (r6) - Cantidad de cartas certificadas:', ccc)
-print(' (r7) - Cantidad de cartas expresas:', cce)
-print(' (r8) - Tipo de carta con mayor cantidad de envios:', tipo_mayor)
-print(' (r9) - Codigo postal del primer envio del archivo:', primer_cp)
-print('(r10) - Cantidad de veces que entro ese primero:', cant_primer_cp)
-print('(r11) - Importe menor pagado por envios a Brasil:', menimp)
-print('(r12) - Codigo postal del envio a Brasil con importe menor:', mencp)
-print('(r13) - Porcentaje de envios al exterior sobre el total:', porc)
-print('(r14) - Importe final promedio de los envios a Buenos Aires:', prom)
+
+def imp_acu_total():
+    if control() == "Soft Control":
+        pass
+
+def ccs():
+    return ""
+
+def ccc():
+    return ""
+
+def cce():
+    return ""
+
+def tipo_mayor():
+    return ""
+
+def cce():
+    return ""
+
+def primer_cp():
+    return ""
+
+def cce():
+    return ""
+
+def cant_primer_cp():
+    return ""
+
+def menimp():
+    return ""
+
+def mencp():
+    return ""
+
+def porc():
+    return ""
+
+def prom():
+    return ""
+
+
+print(' (r1) - Tipo de control de direcciones:', control())
+print(' (r2) - Cantidad de envios con direccion valida:', true_count)
+print(' (r3) - Cantidad de envios con direccion no valida:', false_count)
+
+print(' (r4) - Total acumulado de importes finales:', imp_acu_total())
+print(' (r5) - Cantidad de cartas simples:', ccs())
+print(' (r6) - Cantidad de cartas certificadas:', ccc())
+print(' (r7) - Cantidad de cartas expresas:', cce())
+print(' (r8) - Tipo de carta con mayor cantidad de envios:', tipo_mayor())
+print(' (r9) - Codigo postal del primer envio del archivo:', primer_cp())
+print('(r10) - Cantidad de veces que entro ese primero:', cant_primer_cp())
+print('(r11) - Importe menor pagado por envios a Brasil:', menimp())
+print('(r12) - Codigo postal del envio a Brasil con importe menor:', mencp())
+print('(r13) - Porcentaje de envios al exterior sobre el total:', porc())
+print('(r14) - Importe final promedio de los envios a Buenos Aires:', prom())
+
