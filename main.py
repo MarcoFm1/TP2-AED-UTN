@@ -126,7 +126,7 @@ else:
     false_count = 0
 '''
 
-envios = open("envios25.txt", "r", encoding="utf-8").readlines()
+envios = open("envios100SC.txt", "r", encoding="utf-8").readlines()
 #1
 def control():
     for line in envios:
@@ -390,8 +390,6 @@ def tipo_carta():
 
     return carta_simple, carta_certificada, carta_expresa
 
-# Definir las funciones separadas para retornar cada tipo de carta
-
 def ccs():
     simple, certificada, expresa = tipo_carta()
     return simple
@@ -404,11 +402,8 @@ def cce():
     simple, certificada, expresa = tipo_carta()
     return expresa
 
-    
-
 
 def tipo_mayor():
-
     mayor = ccs()
     nombre_mayor = "Carta Simple"
     if ccc() > mayor:
@@ -423,37 +418,78 @@ def tipo_mayor():
 
 def primer_cp():
     linea = envios[1]
-    lista_cp = ""
-    cont_cp = 0
-    for letra in linea[:9]:
-        cp = letra
-        lista_cp = lista_cp + cp
-        # print(cp)
-        cont_cp += 1
-        cont_cp_final = cont_cp
-    
-    return lista_cp.strip()
+    code = linea[:9].strip()
+    return code
 
 
 def cant_primer_cp():
-    primer_cpe = primer_cp()
     contador = 0
-    for linea in envios:
-        if linea == primer_cpe:
+    cp = primer_cp()
+    for linea in envios[1:]: 
+        # print("chequeado")
+        if cp in linea.strip(): 
             contador += 1
-
     return contador
 
-
-
 def menimp():
-    return ""
+    menor_importe = None
+    cp_menor_importe = None
+    
+    for linea in envios[1:]:
+        cp = linea[:9].strip()
+        
+        if len(cp) == 9:
+            primer_digito = int(cp[0])
+            if primer_digito in [0, 1, 2, 3]:
+                recargo = 1.25
+            elif primer_digito in [8, 9]:
+                recargo = 1.2
+            elif primer_digito in [4, 5, 6, 7]:
+                recargo = 1.3
+            
+            tipo = int(linea[29]) 
+            if tipo == 0:
+                precio_inicial = 1100
+            elif tipo == 1:
+                precio_inicial = 1800
+            elif tipo == 2:
+                precio_inicial = 2450
+            elif tipo == 3:
+                precio_inicial = 8300
+            elif tipo == 4:
+                precio_inicial = 10900
+            elif tipo == 5:
+                precio_inicial = 14300
+            elif tipo == 6:
+                precio_inicial = 17900
+            monto_final = precio_inicial * recargo
+            
+            if menor_importe is None or monto_final < menor_importe:
+                menor_importe = monto_final
+                cp_menor_importe = cp
+    
+    return menor_importe, cp_menor_importe
 
-def mencp():
-    return ""
+menor_importe, cp_menor_importe = menimp()
+
 
 def porc():
-    return ""
+    total = 0
+    cont = 0
+
+    for linea in envios[1:]:
+        total += 1
+        cp = linea[:9].strip()
+        if len(cp) != 8:
+            cont += 1
+    
+    if total > 0:
+        porce = (cont / total) * 100
+    else:
+        porce = 0
+    
+    return porce
+
 
 def prom():
     return ""
@@ -469,9 +505,11 @@ print(' (r7) - Cantidad de cartas expresas:', cce())
 print(' (r8) - Tipo de carta con mayor cantidad de envios:', tipo_mayor())
 print(' (r9) - Codigo postal del primer envio del archivo:', primer_cp())
 print('(r10) - Cantidad de veces que entro ese primero:', cant_primer_cp())
-print('(r11) - Importe menor pagado por envios a Brasil:', menimp())
-print('(r12) - Codigo postal del envio a Brasil con importe menor:', mencp())
+
+print('(r11) - Importe menor pagado por envíos a Brasil:', menor_importe)
+print('(r12) - Código postal del envío a Brasil con importe menor:', cp_menor_importe)
 print('(r13) - Porcentaje de envios al exterior sobre el total:', porc())
+
 print('(r14) - Importe final promedio de los envios a Buenos Aires:', prom())
 
 
