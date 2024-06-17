@@ -1,4 +1,4 @@
-envios = open("envios100HC.txt", "r").readlines()
+envios = open("envios.txt", "r").readlines()
 #1
 def control():
     for line in envios:
