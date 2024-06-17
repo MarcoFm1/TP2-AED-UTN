@@ -8,7 +8,7 @@ def control():
             return "Soft Control"
 
 
-#2
+#2 y 3
 def validation(envio: str):
     is_mayus = False
     some_word_is_numeric = False
@@ -28,7 +28,7 @@ def validation(envio: str):
             else:
                 is_mayus = False
         else:
-            is_mayus = True
+            is_mayus = False
 
         if not some_word_is_numeric:
             if letter.isalpha() or letter.isnumeric():
@@ -49,8 +49,8 @@ true_count = 0
 false_count = 0
 
 for envio in envios[1:]:
-    result = not validation(envio[:9])
-    # print(f"{result}")
+    result = validation(envio[9:29])
+    # print(envio[9:29], result)
     
     if result:
         true_count += 1
@@ -66,44 +66,38 @@ else:
     false_count = 0
 
 
-
+#4
 def imp_acu_total():
     importe_acumulado = 0
     
     if control() == "Soft Control":
         for linea in envios[1:]:
-            lista_cp = []
-            cont_cp = 0
-            # print("-----------")
-            for letra in linea[:9]:
-                cp = letra
-                lista_cp.append(cp)
-                # print(cp)
-                cont_cp += 1
-            cont_cp_final = cont_cp
+            codigo_postal = linea[:9].strip()
+            cont_cp_final = len(codigo_postal)
+            # print("cp: ", codigo_postal)
             # print("letras: ", cont_cp_final)
-            # print(lista_cp)
+            # print(codigo_postal)
             
             # Determinar país y recargo
-            if cont_cp_final == 8 and lista_cp[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
+            if cont_cp_final == 8 and codigo_postal[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
                 recargo = 1
-            elif cont_cp_final == 4 and lista_cp[0] in "1234567890":
+            elif cont_cp_final == 4 and codigo_postal[0] in "1234567890":
                 recargo = 1.2
-            elif cont_cp_final == 9 and lista_cp[0] in "1234567890" and lista_cp[5] == "-":
-                if lista_cp[0] in ("0123"):
+            elif cont_cp_final == 9 and codigo_postal[0] in "1234567890" and codigo_postal[5] == "-":
+                if codigo_postal[0] in ("0123"):
                     recargo = 1.25
-                elif lista_cp[0] in ("89"):
+                elif codigo_postal[0] in ("89"):
                     recargo = 1.2
-                elif lista_cp[0] in ("4567"):
+                elif codigo_postal[0] in ("4567"):
                     recargo = 1.3
-            elif cont_cp_final == 7 and lista_cp[0] in "1234567890":
+            elif cont_cp_final == 7 and codigo_postal[0] in "1234567890":
                 recargo = 1.25
-            elif cont_cp_final == 5 and lista_cp[0] in "1234567890":
-                if lista_cp[0] == "1":
+            elif cont_cp_final == 5 and codigo_postal[0] in "1234567890":
+                if codigo_postal[0] == "1":
                     recargo = 1.2
                 else:
                     recargo = 1.25
-            elif cont_cp_final == 6 and lista_cp[0] in "1234567890":
+            elif cont_cp_final == 6 and codigo_postal[0] in "1234567890":
                 recargo = 1.2
             else:
                 recargo = 1.5 
@@ -135,40 +129,34 @@ def imp_acu_total():
 
     elif control() == "Hard Control":
         for linea in envios[1:]:
-            result = validation(linea)
+            codigo_postal = linea[:9].strip()
+            cont_cp_final = len(codigo_postal)
+
+            result = validation(linea[9:29])
             if result == True:
-                lista_cp = []
-                cont_cp = 0
-                print("-----------")
-                for letra in linea[:9]:
-                    cp = letra
-                    lista_cp.append(cp)
-                    print(cp)
-                    cont_cp += 1
-                cont_cp_final = cont_cp
-                print("letras: ", cont_cp_final)
-                print(lista_cp)
+                # print("-----------")
+                
                 
                 # Determinar país y recargo
-                if cont_cp_final == 8 and lista_cp[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
+                if cont_cp_final == 8 and codigo_postal[0] in "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ":
                     recargo = 1
-                elif cont_cp_final == 4 and lista_cp[0] in "1234567890":
+                elif cont_cp_final == 4 and codigo_postal[0] in "1234567890":
                     recargo = 1.2
-                elif cont_cp_final == 9 and lista_cp[0] in "1234567890" and lista_cp[5] == "-":
-                    if lista_cp[0] in ("0123"):
+                elif cont_cp_final == 9 and codigo_postal[0] in "1234567890" and codigo_postal[5] == "-":
+                    if codigo_postal[0] in ("0123"):
                         recargo = 1.25
-                    elif lista_cp[0] in ("89"):
+                    elif codigo_postal[0] in ("89"):
                         recargo = 1.2
-                    elif lista_cp[0] in ("4567"):
+                    elif codigo_postal[0] in ("4567"):
                         recargo = 1.3
-                elif cont_cp_final == 7 and lista_cp[0] in "1234567890":
+                elif cont_cp_final == 7 and codigo_postal[0] in "1234567890":
                     recargo = 1.25
-                elif cont_cp_final == 5 and lista_cp[0] in "1234567890":
-                    if lista_cp[0] == "1":
+                elif cont_cp_final == 5 and codigo_postal[0] in "1234567890":
+                    if codigo_postal[0] == "1":
                         recargo = 1.2
                     else:
                         recargo = 1.25
-                elif cont_cp_final == 6 and lista_cp[0] in "1234567890":
+                elif cont_cp_final == 6 and codigo_postal[0] in "1234567890":
                     recargo = 1.2
                 else:
                     recargo = 1.5 
@@ -176,6 +164,7 @@ def imp_acu_total():
                 # Calcular el monto basado en tipo de envio
                 tipo = linea[29]
                 precio_inicial = 0
+                monto_final = 0
                 if tipo == '0':
                     precio_inicial = 1100
                 elif tipo == '1':
@@ -192,13 +181,14 @@ def imp_acu_total():
                     precio_inicial = 17900
                 monto_final = precio_inicial * recargo
 
-                print("Tipo de envio: ", tipo)
-                print("Monto: ", monto_final)
+                # print("Tipo de envio: ", tipo)
+                # print("Monto: ", monto_final)
                 
                 importe_acumulado += monto_final
 
 
-    return importe_acumulado
+
+    return int(importe_acumulado)
 
     
 
@@ -220,7 +210,7 @@ def tipo_carta():
                 
     elif control() == "Hard Control":
         for linea in envios[1:]:
-            result = validation(linea)
+            result = validation(linea[9:29])
             if result == True:
                 tipo = linea[29]
                 if tipo == '0' or tipo == '1' or tipo == '2':
@@ -333,18 +323,21 @@ def porc():
         
         return porce
     elif control() == "Hard Control":
+        total = 0
+        cont = 0
         for linea in envios[1:]:
-            if not validation(linea) == True:
-                total = 0
-                cont = 0
-            for linea in envios[1:]:
-                total += 1
-                cp = linea[:9].strip()
-                if len(cp) != 8:
+            total += 1
+            codigo_postal = linea[:9].strip()
+            cont_cp_final = len(codigo_postal)
+
+            result = validation(linea[9:29])
+            if result == True:
+                if cont_cp_final != 8:
                     cont += 1
+                    # print(codigo_postal)
         
-        porce = int((cont / total) * 100)
-        
+        porce = int((cont * 100) / total)
+        # print(cont)
         return porce
 
 
@@ -352,6 +345,7 @@ def porc():
 def prom():    
     importe_total = 0
     cantidad_envios = 0
+    codigo_postal = ""
     if control() == "Soft Control":
         for linea in envios[1:]:
             cp = linea[:9].strip()
@@ -388,39 +382,40 @@ def prom():
         return promedio_importe
     elif control() == "Hard Control":
         for linea in envios[1:]:
-            result = validation(linea)
+            cp = linea[:9].strip()
+            result = validation(linea[9:29])
             if result == True:  
-                cp = linea[:9].strip()
-            
-            if len(cp) == 8 and cp[0] in "bB":
-                recargo = 1 
-                tipo = int(linea[29])  
-                if tipo == 0:
-                    precio_inicial = 1100
-                elif tipo == 1:
-                    precio_inicial = 1800
-                elif tipo == 2:
-                    precio_inicial = 2450
-                elif tipo == 3:
-                    precio_inicial = 8300
-                elif tipo == 4:
-                    precio_inicial = 10900
-                elif tipo == 5:
-                    precio_inicial = 14300
-                elif tipo == 6:
-                    precio_inicial = 17900
-                else:
-                    pass  
+                if len(cp) == 8 and cp[0] in "bB":
+                    recargo = 1 
+                    tipo = int(linea[29])  
+                    if tipo == 0:
+                        precio_inicial = 1100
+                    elif tipo == 1:
+                        precio_inicial = 1800
+                    elif tipo == 2:
+                        precio_inicial = 2450
+                    elif tipo == 3:
+                        precio_inicial = 8300
+                    elif tipo == 4:
+                        precio_inicial = 10900
+                    elif tipo == 5:
+                        precio_inicial = 14300
+                    elif tipo == 6:
+                        precio_inicial = 17900
+                    else:
+                        pass  
                     
-                importe_envio = precio_inicial * recargo
-                importe_total += importe_envio
-                cantidad_envios += 1
-            if cantidad_envios > 0:
-                promedio_importe = int(importe_total / cantidad_envios)
-            else:
-                promedio_importe = 0
+                    importe_envio = precio_inicial * recargo
+                    importe_total += importe_envio
+                    cantidad_envios += 1
+        
+        if cantidad_envios > 0:
+            promedio_importe = int(importe_total / cantidad_envios)
+        else:
+            promedio_importe = 0
 
-            return promedio_importe
+        return promedio_importe
+
 
 print(' (r1) - Tipo de control de direcciones:', control())
 print(' (r2) - Cantidad de envios con direccion valida:', true_count)
